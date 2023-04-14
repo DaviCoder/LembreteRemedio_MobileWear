@@ -1,1 +1,0 @@
-# LembreteRemedio_MobileWear

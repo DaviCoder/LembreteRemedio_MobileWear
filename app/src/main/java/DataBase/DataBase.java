@@ -1,20 +1,21 @@
 package DataBase;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class DataBase {
-    private final ArrayList<Remedio> Pills;
+    private final ArrayList<Pill> Pills;
 
     public DataBase() {
-        Pills = new ArrayList<Remedio>();
+        Pills = new ArrayList<Pill>();
     }
 
-    public void AddPill(Remedio pill) {
+    public void AddPill(Pill pill) {
         Pills.add(pill);
     }
 
-    public void RemovePill(Remedio pill) {
+    public void RemovePill(Pill pill) {
         Pills.remove(pill);
     }
 
@@ -22,21 +23,23 @@ public class DataBase {
         Pills.remove(index);
     }
 
-    public Remedio GetPill(int index) {
+    public Pill GetPill(int index) {
         return Pills.get(index);
     }
 
-    public List<Remedio> GetPills() {
+    public List<Pill> GetPills() {
         return Pills;
     }
 
     public void GeneretaFakeData(int count){
         for (int i = 0; i < count; i++) {
-            AddPill(new Remedio("Paracetamol", "500mg"));
-            AddPill(new Remedio("Ibuprofen", "400mg"));
-            AddPill(new Remedio("Aspirin", "300mg"));
-            AddPill(new Remedio("Nurofen", "200mg"));
-            AddPill(new Remedio("Panadol", "100mg"));
+            AddPill(new Pill("Paracetamol", "500mg", new Date()));
+            AddPill(new Pill("Ibuprofen", "400mg", new Date()));
+            AddPill(new Pill("Aspirin", "300mg", new Date()));
+            AddPill(new Pill("Nurofen", "200mg", new Date()));
+            AddPill(new Pill("Panadol", "100mg", new Date()));
         }
     }
+
+
 }

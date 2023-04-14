@@ -2,40 +2,29 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/boxInsetLayout"
+    android:id="@+id/ConstraintLayout_Main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/box_inset_layout_padding"
     tools:context=".MainActivity"
-    tools:deviceIds="wear" >
+    tools:deviceIds="wear">
+
 
     <Button
-        android:id="@+id/NovoBtn_Main"
+        android:id="@+id/newPillBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="NOVO"
+        android:text="@string/novo_remedio"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
-        android:id="@+id/ScrollView_Main"
-        android:layout_width="225dp"
-        android:layout_height="186dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="50dp"
-        android:background="#BDBDBD"
-        android:contentDescription="@string/app_name"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <LinearLayout
-            android:id="@+id/LinearLoyout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-    </ScrollView>
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
