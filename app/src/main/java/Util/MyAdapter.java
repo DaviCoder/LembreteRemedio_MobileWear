@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pillsalarm.R;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         return Pills.size();
     }
 
-    private String MontarHorario(Date Hour){
-        return Hour.getDay() + "/" + Hour.getMonth() + "/"  +  Hour.getYear()  + "   " + Hour.getHours() + ":" + Hour.getMinutes();
+    private String MontarHorario(LocalDateTime Hour){
+        return Hour.getDayOfMonth() + "/" + Hour.getMonthValue() + "/"  +  Hour.getYear()  + "   " + Hour.getHour() + ":" + Hour.getMinute();
     }
 }

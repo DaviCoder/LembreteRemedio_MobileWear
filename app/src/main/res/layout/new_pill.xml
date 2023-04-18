@@ -77,9 +77,13 @@
                     android:id="@+id/dataTxt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:contextClickable="false"
+                    android:editable="false"
                     android:ems="10"
                     android:hint="xx/xx/xxxx"
                     android:inputType="textPersonName"
+                    android:longClickable="false"
                     android:textAlignment="center"
                     android:textColor="#FFFFFF" />
             </LinearLayout>
@@ -106,6 +110,7 @@
                     android:ems="10"
                     android:hint="xx:xx"
                     android:inputType="textPersonName"
+                    android:longClickable="false"
                     android:minHeight="48dp"
                     android:textAlignment="center" />
             </LinearLayout>

@@ -15,27 +15,32 @@ import Util.MyAdapter;
 
 public class MainActivity extends Activity {
     private ActivityMainBinding binding;
-    private DataBase dataBase;
-
-    private Button newPillBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dataBase = new DataBase();
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        newPillBtn = binding.newPillBtn;
-        dataBase.GeneretaFakeData(5);
+        //DataBase.GeneretaFakeData(5);
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new MyAdapter(getApplicationContext(), dataBase.GetPills()));
+        recyclerView.setAdapter(new MyAdapter(getApplicationContext(), DataBase.GetPills()));
 
-        newPillBtn.setOnClickListener(v -> {
+        binding.newPillBtn.setOnClickListener(v -> {
             //abrir tela de nova pílula
             Intent intent = new Intent(this, NewPillActivity.class);
             startActivity(intent);
         });
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new MyAdapter(getApplicationContext(), DataBase.GetPills()));
+        super.onResume();
     }
 }
