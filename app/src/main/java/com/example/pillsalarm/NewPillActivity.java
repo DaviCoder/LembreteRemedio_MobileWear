@@ -1,9 +1,15 @@
 package com.example.pillsalarm;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.icu.util.Calendar;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -22,6 +28,7 @@ import java.util.List;
 
 import DataBase.DataBase;
 import DataBase.Pill;
+import Util.AlarmReceiver;
 
 public class NewPillActivity extends Activity {
     private NewPillBinding binding;
@@ -34,6 +41,17 @@ public class NewPillActivity extends Activity {
         super.onCreate(savedInstanceState);
         binding = NewPillBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        int pos = getIntent().getIntExtra("POS",-1);
+
+        if(pos != -1){
+            Pill pill = DataBase.GetPills().get(pos);
+
+            binding.nomeTxt.setText(pill.Name);
+            binding.descricaoTxt.setText(pill.Value);
+            binding.dataTxt.setText(pill.Hour.getDayOfMonth() + "/" + pill.Hour.getMonthValue() + "/"  +  pill.Hour.getYear());
+            binding.horaTxt.setText(pill.Hour.getHour() + ":" + pill.Hour.getMinute());
+        }
 
         binding.NewPillBtnNew.setOnClickListener(v -> {
             Toast.makeText(this, "Nova pílula adicionada", Toast.LENGTH_SHORT).show();
@@ -57,9 +75,13 @@ public class NewPillActivity extends Activity {
             LocalDateTime dataHora = LocalDate.of(year,mouth,day).atTime(hour,minutes);
 
             Pill pill = new Pill(nome,descricao, dataHora);
-            DataBase.AddPill(pill);
+            if(pos != -1){
+                DataBase.UpdatePill(pos,pill);
+            }else{
+                DataBase.AddPill(pill);
+            }
 
-            List<Pill> datas = DataBase.GetPills();
+            CriarAlarme(pill);
             this.finish();
         });
 
@@ -73,5 +95,31 @@ public class NewPillActivity extends Activity {
 
         binding.btnSelecionarHora.setOnClickListener(view -> mTimePickerDialog.show());
         binding.btnSelecionarData.setOnClickListener(view -> mDatePickerDialog.show());
+    }
+
+    private void CriarAlarme(Pill pill) {
+        // Obter os valores da hora e da data desejados
+        int year = pill.Hour.getYear();
+        int month = pill.Hour.getMonthValue(); // Janeiro é 0, Fevereiro é 1, Março é 2, etc.
+        int day = pill.Hour.getDayOfMonth();
+        int hour = pill.Hour.getHour();
+        int minute = pill.Hour.getMinute();
+
+// Criar um objeto de calendário com os valores da hora e da data definidos
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DAY_OF_MONTH, day);
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+// Definir o tempo de disparo do alarme usando o objeto de calendário
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+
     }
 }

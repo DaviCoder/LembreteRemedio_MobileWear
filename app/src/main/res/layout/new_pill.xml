@@ -71,7 +71,7 @@
                     android:id="@+id/btnSelecionarData"
                     android:layout_width="110sp"
                     android:layout_height="wrap_content"
-                    android:text="Selecionar" />
+                    android:text="Data" />
 
                 <EditText
                     android:id="@+id/dataTxt"
@@ -97,7 +97,7 @@
                     android:id="@+id/btnSelecionarHora"
                     android:layout_width="110sp"
                     android:layout_height="wrap_content"
-                    android:text="Selecionar" />
+                    android:text="Hora" />
 
                 <EditText
                     android:id="@+id/horaTxt"

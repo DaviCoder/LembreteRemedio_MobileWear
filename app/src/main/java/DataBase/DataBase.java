@@ -13,6 +13,10 @@ public class DataBase{
         Pills.add(pill);
     }
 
+    public static void UpdatePill(int position, Pill pill){
+        Pills.set(position, pill);
+    }
+
     public static void RemovePill(Pill pill) {
         Pills.remove(pill);
     }

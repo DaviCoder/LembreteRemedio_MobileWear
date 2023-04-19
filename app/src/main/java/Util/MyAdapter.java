@@ -1,12 +1,17 @@
 package Util;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.pillsalarm.NewPillActivity;
 import com.example.pillsalarm.R;
 
 import java.time.LocalDateTime;
@@ -36,6 +41,21 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         holder.Value.setText(Pills.get(position).Value);
         holder.Hour.setText(MontarHorario(Pills.get(position).Hour));
         holder.ImageView.setImageResource(com.google.android.gms.base.R.drawable.googleg_standard_color_18);
+
+
+        int pos = position;
+        holder.itemView.setOnClickListener(view -> {
+            try{
+                Intent intent = new Intent(Context, NewPillActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("POS", pos);
+
+                Context.startActivity(intent);
+            }catch (Exception e){
+                System.out.println(e);
+            }
+
+        });
     }
 
     @Override

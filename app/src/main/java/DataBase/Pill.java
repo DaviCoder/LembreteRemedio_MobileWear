@@ -2,6 +2,7 @@ package DataBase;
 
 import androidx.annotation.NonNull;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 

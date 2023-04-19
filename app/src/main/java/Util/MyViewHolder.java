@@ -21,4 +21,5 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         Value = itemView.findViewById(R.id.value);
         Hour = itemView.findViewById(R.id.hour);
     }
+
 }
